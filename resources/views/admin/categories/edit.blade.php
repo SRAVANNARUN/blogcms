@@ -10,16 +10,17 @@
             <div class="widget-header">                                
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>Create new category</h4>
+                        <h4>Update category: {{ $category->name }}</h4>
                     </div>
                 </div>
             </div>
             <div class="widget-content widget-content-area" >
-                <form  action="{{ route('category.store') }}" method="POST"  >
+                <form  action="{{ route('category.update',$category->id) }}" method="POST"  >
                       @csrf
+                      @method('PUT')
                         <div class="form-group mb-4">
                             <label for="name">Category</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Category name" >
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" placeholder="Category name" >
                         </div>
                     
                       <button type="submit" class="btn btn-primary mt-1">Save</button>

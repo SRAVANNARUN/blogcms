@@ -7,7 +7,7 @@
             <div class="widget-header">                                
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>Create new category</h4>
+                        <h4>Lists of categories</h4>
                     </div>
                 </div>
             </div>
@@ -27,11 +27,17 @@
                             
                                 @foreach ($categories as $category )
                                     <tr>
-                                        <td>#</td>
+                                        <td></td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->created_at }}</td>
-                                        <td class="text-center"><button class="btn btn-warning mb-4 mr-2 btn-xs">Edit</button></td>
-                                        <td class="text-center"><button class="btn btn-warning mb-4 mr-2 btn-xs">Edit</button></td>
+                                        <td class="text-center"><a href="{{ route('category.edit', $category) }}" class="btn btn-info btn-sm" >Edit</a></td>
+                                        <td class="text-center">
+                                            <form action="{{ route('category.destroy',$category) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delele</button>
+                                            </form>
+                                        </td>
                                         
                                     </tr>
                                 @endforeach

@@ -240,7 +240,7 @@
 
                 <!-- CONTENT AREA -->
                 
-                @yield('errors')
+                
 
                 @yield('content')
 
