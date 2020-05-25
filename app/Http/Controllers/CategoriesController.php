@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -41,6 +42,9 @@ class CategoriesController extends Controller
         Category::create([
             'name'=>$request->name
         ]);
+        
+        $request->session()->flash('success', 'New category added successfully');
+
         return redirect()->back();
     }
 
@@ -82,6 +86,7 @@ class CategoriesController extends Controller
 
         $category->name=$request->name;
         $category->save();
+        $request->session()->flash('success', 'Category updated successfully');
         return redirect(route('category.index'));
     }
 
@@ -91,10 +96,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
         // dd($category);
         $category->delete();
+        $request->session()->flash('success', 'Category deleted successfully');
         return redirect(route('category.index'));
     }
 }

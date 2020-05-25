@@ -37,6 +37,14 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="category">Select a category</label>
+                                <select class="form-control  basic" name="category_id" id="category">
+                                    @foreach ($categories as $category )
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="content">Content</label>
                                 <textarea class="form-control" name="content" id="" cols="30" rows="10" placeholder="Content" ></textarea>
                             </div>

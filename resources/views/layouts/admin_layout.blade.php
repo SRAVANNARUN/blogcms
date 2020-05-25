@@ -17,6 +17,7 @@
     <link href="{{ asset('plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
 </head>
 <body class="alt-menu sidebar-noneoverflow">
     
@@ -259,11 +260,17 @@
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
     
     <script>
         $(document).ready(function() {
             App.init();
         });
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+
     </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('plugins/highlight/highlight.pack.js') }}"></script>

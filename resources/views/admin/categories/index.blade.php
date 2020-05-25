@@ -12,9 +12,10 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area">
+                @if (count($categories)>0)
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped mb-4">
-                      <caption>List of all users</caption>
+                      <caption>All categories: {{ count($categories) }}</caption>
                       <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -46,6 +47,9 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                    <h3 class="text-center">No categories yet!</h3>
+                @endif
                     
             </div>
         </div>
