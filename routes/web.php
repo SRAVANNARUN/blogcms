@@ -20,10 +20,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Route::get('/test',function(){
+//     dd(App\Post::find(14)->category);
+// });
 
 
 Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
+    
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::resource('post', 'PostsController');
-    Route::resource('category', 'CategoriesController');
+    Route::get('/posts/trashed','PostsController@trashed')->name('posts.trashed');
+    Route::get('/posts/trash/{id}','PostsController@trash')->name('posts.trash');
+    Route::get('/posts/restore/{id}','PostsController@restore')->name('posts.restore');
+    Route::resource('posts', 'PostsController');
+    Route::resource('categories', 'CategoriesController');
+    Route::resource('tags', 'TagsController');
 });
+

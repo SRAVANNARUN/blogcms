@@ -17,6 +17,7 @@ class CategoriesController extends Controller
         return view('admin\categories\index')->with('categories',Category::all());
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +44,7 @@ class CategoriesController extends Controller
             'name'=>$request->name
         ]);
         
-        $request->session()->flash('success', 'New category added successfully');
+        $request->session()->flash('success', 'New category added successfully.');
 
         return redirect()->back();
     }
@@ -86,8 +87,8 @@ class CategoriesController extends Controller
 
         $category->name=$request->name;
         $category->save();
-        $request->session()->flash('success', 'Category updated successfully');
-        return redirect(route('category.index'));
+        $request->session()->flash('success', 'Category updated successfully.');
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -100,7 +101,8 @@ class CategoriesController extends Controller
     {
         // dd($category);
         $category->delete();
-        $request->session()->flash('success', 'Category deleted successfully');
-        return redirect(route('category.index'));
+        $request->session()->flash('success', 'Category deleted successfully.');
+        return redirect(route('categories.index'));
     }
+   
 }

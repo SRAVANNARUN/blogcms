@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area" >
-                <form  action="{{ route('category.store') }}" method="POST"  >
+                <form  action="{{ route('categories.store') }}" method="POST"  >
                       @csrf
                         <div class="form-group mb-4">
                             <label for="name">Category</label>

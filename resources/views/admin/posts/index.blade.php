@@ -13,39 +13,54 @@
             </div>
             <div class="widget-content widget-content-area">
                 @if (count($posts)>0)
+                <br>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped mb-4">
+                    <table class="table  table-hover  mb-4">
                       <caption>All posts: {{ count($posts) }}</caption>
                       <thead>
                             <tr>
-                                <th class="text-center">Image</th>
+                                <th>Image</th>
                                 <th>Title</th>
-                                <th>Created at</th>
-                                <th class="text-center" style="width: 20%" colspan="2">Action</th>
+                                <th>Content</th>
+                                <th>Date</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                                 @foreach ($posts as $post )
                                     <tr>
-                                        <td><img src="{{ $post->image }}" class="rounded" alt="{{ $post->title }}" width="70px" height="70px"></td>
+                                        <td><img class="rounded" width="70" height="70" src="{{asset('storage').'/'.$post->image}}" alt=""></td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ $post->created_at }}</td>
-                                        <td class="text-center"><a href="{{ route('post.edit', $post) }}" class="btn btn-info btn-sm" >Edit</a></td>
+                                        <td>{{ substr($post->content, 0,  40).'...' }}</td>
+                                        <td>{{ $post->created_at }}</>
+                                        {{-- <td class="text-center"><a href="{{ route('posts.edit', $post) }}" class="btn btn-info btn-sm" >Edit</a></td>
                                         <td class="text-center">
-                                            <form action="{{ route('post.destroy',$post) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delele</button>
-                                            </form>
+                                            <a href="{{ route('posts.trash', $post) }}" class="btn btn-danger btn-sm">Trash</a>
+                                        </td> --}}
+                                        <td class="text-center">
+                    
+                                            <div class="dropdown custom-dropdown">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                                </a>
+                        
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                                    
+                                                    <a class="dropdown-item" href="{{ route('posts.edit', $post) }} " >Edit</a>
+                                                    <a class="dropdown-item" href="{{ route('posts.trash', $post) }}">Trash</a>
+                                                    
+                                                </div>
+                                            </div>
                                         </td>
-                                        
                                     </tr>
+                                    
                                 @endforeach
                             
                             
                         </tbody>
                     </table>
+                    <br>
                 </div>
                 @else
                     <h3 class="text-center">No posts yet!</h3>

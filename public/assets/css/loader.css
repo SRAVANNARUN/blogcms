@@ -8,16 +8,20 @@ div#load_screen{
       left: 0;
       right: 0;
       width: 100%;
+      
 }
 div#load_screen .loader {
     display: flex;
     justify-content: center;
     height: 100vh;
+    
+    
 }
 div#load_screen .loader-content {
     right: 0;
     align-self: center;
+    
 }
 .spinner-grow {
-    color: #304aca;
+    color: #ff0000;
 }

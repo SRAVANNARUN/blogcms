@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Blank Page | CORK - Multipurpose Bootstrap Dashboard Template </title>
+    <title>Site Brand</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
@@ -16,11 +16,18 @@
     <link href="{{ asset('assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    
+    <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('assets/js/loader.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+
+    @yield('style')
 </head>
 <body class="alt-menu sidebar-noneoverflow">
-    
+    <!-- BEGIN LOADER -->
+    <div id="load_screen"> <div class="loader"> <div class="loader-content">
+        <div class="spinner-grow align-self-center"></div>
+    </div></div></div>
+    <!--  END LOADER -->
     <!--  BEGIN NAVBAR  -->
     <div class="header-container fixed-top">
         <header class="header navbar navbar-expand-sm expand-header">
@@ -106,7 +113,7 @@
                         </li>
     
                         <li class="menu">
-                            <a href="{{ route('post.create') }}" aria-expanded="false" class="dropdown-toggle">
+                            <a href="{{ route('posts.create') }}" aria-expanded="false" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                     <span>Create new post</span>
@@ -114,10 +121,18 @@
                             </a>
                         </li>
                     <li class="menu">
-                        <a href="{{ route('post.index') }}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ route('posts.index') }}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                <span>Show all post</span>
+                                <span>Show all posts</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="{{ route('posts.trashed') }}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                <span>Show all trahsed posts</span>
                             </div>
                         </a>
                     </li>
@@ -129,7 +144,7 @@
                     </li>
 
                     <li class="menu">
-                        <a href="{{ route('category.create') }}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ route('categories.create') }}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                 <span>Create new category</span>
@@ -137,10 +152,29 @@
                         </a>
                     </li>
                 <li class="menu">
-                    <a href="{{ route('category.index') }}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="{{ route('categories.index') }}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                             <span>Show all catgories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="menu menu-heading">
+                    <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>Tags</span></div>
+                </li>
+                <li class="menu">
+                    <a href="{{ route('tags.create') }}" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Create new tag</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="menu">
+                    <a href="{{ route('tags.index') }}" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Show all tags</span>
                         </div>
                     </a>
                 </li>
@@ -156,7 +190,7 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="submenu" data-parent="#accordionExample">
                             <li>
-                                <a href="{{ route('post.create')}}"> Creat new post </a>
+                                <a href="{{ route('posts.create')}}"> Creat new post </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"> Submenu 211 </a>

@@ -14,20 +14,20 @@
                 <div class="widget-header">                                
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Create new post</h4>
+                            <h4> Create new post</h4>
                         </div>
                     </div>
                 </div>
                 <div class="widget-content widget-content-area">
-                    <form  action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data" >
+                    <form  action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" >
                           @csrf
                             <div class="form-group mb-4">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Title" >
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Title" ">
                             </div>
                             <div class="form-group mb-4">
                                 <div class="custom-file-container" data-upload-id="image">
-                                    <label>Image upload (Allow Multiple) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                                    <label>Select image <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
                                     <label class="custom-file-container__custom-file" >
                                         <input type="file" name='image' class="custom-file-container__custom-file__custom-file-input"  accept='image/*' >
                                         <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
@@ -37,10 +37,18 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="category">Select a category</label>
+                                <label for="category">Please select a category</label>
                                 <select class="form-control  basic" name="category_id" id="category">
                                     @foreach ($categories as $category )
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="category">Please select or type new tags</label>
+                                <select name="tags[]" class=" form-control tagging" multiple="multiple">
+                                    @foreach ($tags as $tag)
+                                        <option value="{{$tag->name}}">{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -58,7 +66,17 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/select2/custom-select2.js') }}"></script> --}}
     <script>
         var secondUpload = new FileUploadWithPreview('image')
+        $(".tagging").select2({
+            tags: true,
+            maximumInputLength: 5
+        });
     </script>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.min.css') }}">
 @endsection

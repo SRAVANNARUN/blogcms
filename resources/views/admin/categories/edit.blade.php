@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area" >
-                <form  action="{{ route('category.update',$category->id) }}" method="POST"  >
+                <form  action="{{ route('categories.update',$category->id) }}" method="POST"  >
                       @csrf
                       @method('PUT')
                         <div class="form-group mb-4">

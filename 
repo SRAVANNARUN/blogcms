@@ -1,0 +1,17 @@
+[33mcommit 250653ec9a404080ec94594476e8005314cc8be5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: unknown <srunvannara@gmail.com>
+Date:   Mon May 25 17:14:15 2020 +0700
+
+    able to add post with slug
+
+[33mcommit 27b466879d2a2807fd1cad11f05a77bb0b9daf13[m
+Author: unknown <srunvannara@gmail.com>
+Date:   Sun May 24 23:00:53 2020 +0700
+
+    able to add, edit and delete category
+
+[33mcommit 0644b5273fc4620cb29ca96bc131a85fbd2dbbbd[m
+Author: unknown <srunvannara@gmail.com>
+Date:   Sun May 24 14:14:18 2020 +0700
+
+    first commit
