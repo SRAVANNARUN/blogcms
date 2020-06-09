@@ -45,7 +45,13 @@
                                 <img src="{{ asset('assets/img/90x90.jpg') }}" class="img-fluid mr-2" alt="avatar">
                                 <div class="media-body">
                                     <h5>{{ Auth::user()->name }}</h5>
-                                    <p>Web Developer</p>
+                                    <p>
+                                        @if (Auth::user()->admin)
+                                            Admin
+                                        @else
+                                            Author
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -160,21 +166,30 @@
                     </a>
                 </li>
                 <li class="menu menu-heading">
-                    <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>Tags</span></div>
+                    <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>Users</span></div>
                 </li>
+                
                 <li class="menu">
-                    <a href="{{ route('tags.create') }}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="{{ route('profiles.create')}}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                            <span>Create new tag</span>
+                            <span>Add new user</span>
                         </div>
                     </a>
                 </li>
                 <li class="menu">
-                    <a href="{{ route('tags.index') }}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="{{ route('users.index') }}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                            <span>Show all tags</span>
+                            <span>Show all users</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="menu">
+                    <a href="{{ route('profiles.index')}}" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Edit my profile</span>
                         </div>
                     </a>
                 </li>
@@ -304,7 +319,9 @@
         @if(Session::has('success'))
             toastr.success("{{ Session::get('success') }}")
         @endif
-
+        @if(Session::has('info'))
+            toastr.info("{{ Session::get('info') }}")
+        @endif
     </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('plugins/highlight/highlight.pack.js') }}"></script>

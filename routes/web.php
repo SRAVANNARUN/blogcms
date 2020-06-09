@@ -34,5 +34,7 @@ Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
     Route::resource('posts', 'PostsController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('tags', 'TagsController');
+    Route::resource('users','UsersController');
+    Route::resource('profiles', 'ProfilesController');
 });
 

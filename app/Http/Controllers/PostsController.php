@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+
+    public function __construct(){
+        return $this->middleware('category');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,12 +43,12 @@ class PostsController extends Controller
     public function store(Request $request)
     {
      
-    //   $this->validate($request,[
-    //       'title'=>'required|unique:posts|max:255',
-    //       'image'=>'required|image|max:20480',
-    //       'content'=>'required',
-    //       'category_id'=>'required'
-    //   ]);
+      $this->validate($request,[
+          'title'=>'required|unique:posts|max:255',
+          'image'=>'required|image|max:20480',
+          'content'=>'required',
+          'category_id'=>'required'
+      ]);
         
         $image=$request->image->store('posts');
 

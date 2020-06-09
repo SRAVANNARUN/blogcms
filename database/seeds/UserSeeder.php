@@ -12,18 +12,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user=User::create([
+        $user1=User::create([
             'name'=>'SRUN VANNARA',
             'admin'=>1,
             'email'=>'srv@gmail.com',
             'password'=>bcrypt('srv@gmail.com')
         ]);
+        $user2=User::create([
+            'name'=>'SRUN VANNARY',
+            'admin'=>0,
+            'email'=>'srv2@gmail.com',
+            'password'=>bcrypt('srv@gmail.com')
+        ]);
         Profile::create([
-            'user_id'=>$user->id,
-            'avatar'=>'Link to a pic',
-            'about'=>'This is about',
-            'facebook'=>'Link to fb account',
-            
+            'user_id'=>$user1->id,
+            'image'=>'',
+            'about'=>'',
+           
+
+        ]);
+        Profile::create([
+            'user_id'=>$user2->id,
+            'image'=>'',
+            'about'=>'',
+           
+
         ]);
 
     }
