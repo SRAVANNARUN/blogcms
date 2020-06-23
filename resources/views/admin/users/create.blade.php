@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="widget-content widget-content-area">
-                    <form  action="{{ route('profiles.store') }}" method="POST" enctype="multipart/form-data" >
+                    <form  action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" >
                           @csrf
                             <div class="form-group mb-4">
                                 <label for="title">Name</label>

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Profile;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 class UsersController extends Controller
 {
 
      public function __construct(){
-         return $this->middleware('admin')->except(['edit']);
+         return $this->middleware('admin')->except(['update']);
      }
     /**
      * Display a listing of the resource.
@@ -30,7 +32,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin\users\create');
     }
 
     /**
@@ -41,7 +43,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'photo'=>['required', 'max:2048']
+        ]);
+        $image=$request->photo->store('users');
+        $user=User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password)
+        ]);
+        
+            Profile::create([
+                'user_id'=>$user->id,
+                'image'=>$image,
+            ]);
+        return redirect()->back()->with('success', 'Profile added successfully.');
+        // dd($request->all());
     }
 
     /**
@@ -75,7 +95,24 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($user);
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->profile->about=$request->about;
+    
+        if($request->has('password')){
+
+            // dd($request->password);
+            $user->password=bcrypt($request->password);
+            // $user->pawword=Hash::make($request->password);
+        }
+        if ($request->hasFile('image')){
+            $image=$request->image->store('users');
+            Storage::delete($user->profile->image);
+            $user->profile->image=$image;
+            $user->profile->save();
+        }
+        $user->save();
+        return redirect()->route('home')->with('success', 'User updated successfully.');
     }
 
     /**

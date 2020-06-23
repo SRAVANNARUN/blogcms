@@ -21,8 +21,7 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Title</th>
-                                <th>Content</th>
-                                <th>Date</th>
+                                <th>Published Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -32,7 +31,6 @@
                                     <tr>
                                         <td><img class="rounded" width="70" height="70" src="{{asset('storage').'/'.$post->image}}" alt=""></td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ substr($post->content, 0,  40).'...' }}</td>
                                         <td>{{ $post->created_at }}</>
                                         {{-- <td class="text-center"><a href="{{ route('posts.edit', $post) }}" class="btn btn-info btn-sm" >Edit</a></td>
                                         <td class="text-center">

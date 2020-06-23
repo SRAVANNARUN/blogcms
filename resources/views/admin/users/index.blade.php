@@ -18,7 +18,7 @@
                       <caption>All users: {{ count($users) }}</caption>
                       <thead>
                             <tr>
-                                <th>Photo</th>
+                                <th class="text-left">Photo</th>
                                 <th>Name</th>
                                 <th>Date</th>
                                 <th>Type</th>
@@ -29,9 +29,11 @@
                             
                                 @foreach ($users as $user )
                                     <tr>
-                                        <td>
+                                        <td class="text-left">
                                             @if ($user->profile->image!=null)
-                                            <img class="rounded" width="70" height="70" src="{{asset('storage').'/'.$user->profile->image}}" alt="">
+                                            <img class="rounded" style="margin-left: 10px;" width="70" height="70" src="{{asset('storage').'/'.$user->profile->image}}" alt="">
+                                            @else
+                                            <img class="rounded"  width="95" height="95" src="{{asset('storage').'/default/broken_image.svg'}}" alt="">
                                             @endif
                                         </td>
                                         <td>{{ $user->name }}</td>

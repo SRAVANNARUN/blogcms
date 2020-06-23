@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -20,9 +21,31 @@
     <script src="{{ asset('assets/js/loader.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
 
+    <style>
+        @font-face {
+            font-family: 'Khmer Os Muol Light';
+            src: url('{{asset('/fonts/KhmerOSmuollight.ttf')}}');
+        }
+        @font-face {
+            font-family: 'Khmer OS Metal Chrieng';
+            src: url('{{asset('/fonts/Kh-Metal-Chrieng.ttf')}}');
+        }
+        @font-face {
+            font-family: 'Khmer Os';
+            src: url('{{asset('/fonts/KhmerOS.ttf')}}');
+        }
+        @font-face {
+            font-family: 'BAUHS93';
+            src: url('{{asset('/fonts/BAUHS93.TTF')}}');
+        }
+        @font-face {
+            font-family: 'TACTENG';
+            src: url('{{asset('/fonts/TACTENG.TTF')}}');
+        }
+        </style>
     @yield('style')
 </head>
-<body class="alt-menu sidebar-noneoverflow">
+<body class="alt-menu sidebar-noneoverflow" >
     <!-- BEGIN LOADER -->
     <div id="load_screen"> <div class="loader"> <div class="loader-content">
         <div class="spinner-grow align-self-center"></div>
@@ -42,7 +65,12 @@
                     <div class="dropdown-menu position-absolute e-animated e-fadeInUp" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">                            
                             <div class="media mx-auto">
-                                <img src="{{ asset('assets/img/90x90.jpg') }}" class="img-fluid mr-2" alt="avatar">
+                                {{-- <img src="{{ asset('assets/img/90x90.jpg') }}" class="img-fluid mr-2" alt="avatar"> --}}
+                                <img class="img-fluid mr-2 "  @if (Auth::user()->profile->image!=null)
+                                    src="{{asset('storage').'/'.Auth::user()->profile->image}}"
+                                @else
+                                    src="{{asset('storage').'/default/broken_image.svg'}}"
+                                @endif alt="photo">
                                 <div class="media-body">
                                     <h5>{{ Auth::user()->name }}</h5>
                                     <p>
@@ -56,7 +84,7 @@
                             </div>
                         </div>
                         <div class="dropdown-item">
-                            <a href="user_profile.html">
+                            <a href="{{ route('profiles.index') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>My Profile</span>
                             </a>
                         </div>
@@ -103,11 +131,12 @@
                 <ul class="navbar-nav theme-brand flex-row  text-center">
                     <li class="nav-item theme-logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/img/90x90.jpg') }}" class="navbar-logo" alt="logo">
+                            <img  src="{{asset('storage').'/default/broken_image.svg'}}" class="navbar-logo" alt="logo">
+                            
                         </a>
                     </li>
                     <li class="nav-item theme-text">
-                        <a href="{{ route('home') }}" class="nav-link"> SITE BRAND </a>
+                        <a href="{{ route('home') }}" class="nav-link"> SITE NAME </a>
                     </li>
                 </ul>
 
@@ -170,7 +199,7 @@
                 </li>
                 
                 <li class="menu">
-                    <a href="{{ route('profiles.create')}}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="{{ route('users.create')}}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             <span>Add new user</span>

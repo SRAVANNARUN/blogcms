@@ -29,7 +29,6 @@
                             <tr>
                                 <th >Image</th>
                                 <th>Title</th>
-                                <td>Content</td>
                                 <th>Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -40,7 +39,6 @@
                                     <tr>
                                         <td><img class="rounded" width="70" height="70" src="{{asset('storage').'/'.$post->image}}" alt=""></td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ substr($post->content, 0,  40).'...' }}</td>
                                         <td>{{ $post->created_at }}</td>
                                         <td class="text-center">
                     

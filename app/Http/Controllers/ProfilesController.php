@@ -25,7 +25,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        return view('admin\users\create');
+        
     }
 
     /**
@@ -36,25 +36,7 @@ class ProfilesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'photo'=>['required', 'max:2048']
-        ]);
-        $image=$request->photo->store('users');
-        $user=User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>bcrypt($request->password)
-        ]);
         
-            Profile::create([
-                'user_id'=>$user->id,
-                'image'=>$image,
-            ]);
-        return redirect()->back()->with('success', 'Profile added successfully.');
-        // dd($request->all());
     }
 
     /**
