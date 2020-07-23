@@ -99,7 +99,7 @@ class UsersController extends Controller
         $user->email=$request->email;
         $user->profile->about=$request->about;
     
-        if($request->has('password')){
+        if($request->password!=null){
 
             // dd($request->password);
             $user->password=bcrypt($request->password);

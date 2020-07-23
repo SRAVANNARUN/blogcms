@@ -22,8 +22,12 @@
                     <form  action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" >
                           @csrf
                             <div class="form-group mb-4">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Title" ">
+                                <label >Product Name</label>
+                                <input type="text" class="form-control"  name="product_name" placeholder="Product Name" ">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label >Price</label>
+                                <input type="text" class="form-control"  name="price" placeholder="Price" ">
                             </div>
                             <div class="form-group mb-4">
                                 <div class="custom-file-container" data-upload-id="image">
@@ -37,24 +41,24 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="category">Please select a category</label>
-                                <select class="form-control  basic" name="category_id" id="category">
-                                    @foreach ($categories as $category )
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <label>Select category</label>
+                                <select class="form-control  basic" name="submenu_id">
+                                    @foreach ($submenus as $submenu )
+                                    <option value="{{ $submenu->id }}">{{ $submenu->submenu }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="category">Please select or type new tags</label>
-                                <select name="tags[]" class=" form-control tagging" multiple="multiple">
+                            {{-- <div class="form-group mb-4">
+                                <label for="tag">Please select or type new tags</label>
+                                <select name="tags[]" class=" form-control tagging" multiple="multiple" id="tag">
                                     @foreach ($tags as $tag)
                                         <option value="{{$tag->name}}">{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="form-group mb-4">
-                                <label for="content">Content</label>
-                                <textarea name="content" class="editor"></textarea>
+                                <label >Product Details</label>
+                                <textarea name="product_detail" class="editor"></textarea>
                             </div>
                           <button type="submit" class="btn btn-primary mt-1">Save</button>
                         </form>
@@ -84,9 +88,9 @@
      
         ClassicEditor
 			.create( document.querySelector( '.editor' ), {
-				ckfinder: {
-			        uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-                },
+				// ckfinder: {
+			    //     uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                // },
                 fontFamily: {
                  options: [
                     'default',
@@ -112,11 +116,11 @@
 						'indent',
 						'outdent',
 						'|',
-						'imageUpload',
+						// 'imageUpload',
 						
 						'blockQuote',
 						'insertTable',
-						'mediaEmbed',
+						// 'mediaEmbed',
 						'undo',
 						'redo',
 						'alignment',

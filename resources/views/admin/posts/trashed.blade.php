@@ -38,7 +38,7 @@
                                 @foreach ($posts as $post )
                                     <tr>
                                         <td><img class="rounded" width="70" height="70" src="{{asset('storage').'/'.$post->image}}" alt=""></td>
-                                        <td>{{ $post->title }}</td>
+                                        <td>{{ $post->product_name }}</td>
                                         <td>{{ $post->created_at }}</td>
                                         <td class="text-center">
                     
@@ -49,12 +49,13 @@
                         
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
                                                     <a class="dropdown-item" href="{{ route('posts.restore', ['id'=>$post->id] )}}">Restore</a>
-                                                    <form action="{{ route('posts.destroy',$post) }}" method="POST">
+                                                    <button  class="dropdown-item" onclick="handleDelete({{ $post }})">Delete</button>
+                                                    {{-- <form action="{{ route('posts.destroy',$post) }}" method="POST">
                                                         @csrf
                                                         @method('Delete')
                                                         <button type="submit" class="dropdown-item">Delete</button>
-                                                    </form>
-                                                    
+                                                    </form> --}}
+                                                      
                                                 </div>
                                             </div>
                                         </td>
@@ -74,4 +75,37 @@
         </div>
     </div>  
 </div>
+<form action="" method="POST" id="deleteForm">
+    @method('Delete')
+    @csrf
+    
+    <div class="modal animated zoomInUp" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="DeleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="DeleteModelLabel">Delete Post</h5>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this post?
+                </div>
+                <div class="modal-footer justify-content-between border-0">
+                    <button type="button" class="btn" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection
+@section('scripts')
+    <script>
+         function handleDelete(post){
+            
+            var form=document.getElementById('deleteForm');
+            form.action='/admin/posts/'+post.id;
+             console.log(form);
+            
+            $('#deleteModel').modal('show');
+        }
+    </script>
 @endsection

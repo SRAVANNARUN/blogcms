@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         ]);
         Profile::create([
             'user_id'=>$user1->id,
-            'image'=>'',
+            'image'=>'', 
             'about'=>'',
            
 

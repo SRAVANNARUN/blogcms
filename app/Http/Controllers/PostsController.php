@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use App\Post;
-use App\Tag;
-use App\Category;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Post;
+use App\Submenu;
+use App\Tag;
+use Illuminate\Support\Str;
+use Storage;
 class PostsController extends Controller
 {
 
     public function __construct(){
-        return $this->middleware('category');
+        return $this->middleware('submenu')->only('create');
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +21,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index')->with('posts',Post::all());
+        // dd(Post::paginate(20)->lastPage());
+        $posts=Post::simplePaginate(20);
+        // $lastPage=$post->hasMorePages();
+        // dd($lastPage);
+        return view('admin.posts.index')->with('posts',$posts);
     }
 
     /**
@@ -31,7 +35,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create')->with('categories',Category::all())->with('tags',Tag::all());
+        return view('admin.posts.create')->with('submenus',Submenu::all())->with('tags',Tag::all());
     }
 
     /**
@@ -42,22 +46,24 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-     
+    //  dd($request->all());
+        // dd($request->all());
       $this->validate($request,[
-          'title'=>'required|unique:posts|max:255',
+          'product_name'=>'required|unique:posts|max:50',
+          'price'=> 'required|numeric',
           'image'=>'required|image|max:20480',
-          'content'=>'required',
-          'category_id'=>'required'
+          'product_detail'=>'required'
       ]);
         
         $image=$request->image->store('posts');
 
         $post=Post::create([
-            'title'=>$request->title,
+            'product_name'=>$request->product_name,
+            'price'=>$request->price,
             'image'=>$image,
-            'content'=>$request->content,
-            'category_id'=>$request->category_id,
-            'slug'=>Str::slug($request->title)
+            'product_detail'=>$request->product_detail,
+            'submenu_id'=>$request->submenu_id,
+            'slug'=>Str::slug($request->product_name)
         ]);
 
 
@@ -102,7 +108,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin\posts\edit')->with('post',$post)->with('categories',Category::all())->with('tags',Tag::all());
+        return view('admin\posts\edit')->with('post',$post)->with('submenus',Submenu::all())->with('tags',Tag::all());
     }
 
     /**
@@ -115,9 +121,10 @@ class PostsController extends Controller
     public function update(Request $request, Post $post)
     {
         $this->validate($request,[
-            'title'=>'required|max:255',
-            'content'=>'required',
-            'category_id'=>'required'
+            'product_name'=>'required|max:255',
+            'price'=> 'required|numeric',
+            'product_detail'=>'required',
+            'submenu_id'=>'required'
         ]);
         $data =$request->all();
         if ($request->hasFile('image')){
@@ -125,7 +132,7 @@ class PostsController extends Controller
             Storage::delete($post->image);
             $data['image']=$image;
         }
-        $post['category_id']=$data['category_id'];
+        $post['submenu_id']=$data['submenu_id'];
         $post->update($data);
 
         $existingTags=Tag::all()->pluck('name')->toArray();
@@ -160,8 +167,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
+        
         $post=Post::withTrashed()->where('id',$id)->firstOrFail();
-
         if ($post->trashed()){
             $post->deleteImage();
             $post->forceDelete();
@@ -170,7 +177,7 @@ class PostsController extends Controller
             $post->delete();
             session()->flash('success', 'Posts moved trash successfully.');
         }
-        return redirect()->back();;
+        return redirect()->back();
     }
      /**
      * Show item in trash

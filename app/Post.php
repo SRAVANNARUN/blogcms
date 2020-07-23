@@ -10,10 +10,11 @@ class Post extends Model
 {
     use softDeletes;
    protected $fillable =([
-        'title',
+        'product_name',
+        'price',
         'image',
-        'content',
-        'category_id',
+        'product_detail',
+        'submenu_id',
         'slug'
    ]);
 
@@ -29,9 +30,9 @@ class Post extends Model
     //     $url = Storage::url($this->$image);
     //     return $url;
     // }
-    public function category()
+    public function submenu()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Submenu');
     }
     public function tags()
     {
